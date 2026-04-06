@@ -1,0 +1,90 @@
+# =========================
+# Node.js dependencies
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Build / output
+# =========================
+dist/
+build/
+out/
+
+# =========================
+# Temporary files
+# =========================
+tmp/
+temp/
+*.tmp
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Coverage reports
+# =========================
+coverage/
+
+# =========================
+# MongoDB (local data dumps)
+# =========================
+dump/
+*.archive
+
+# =========================
+# Uploaded files (if using multer, etc.)
+# =========================
+uploads/
+public/uploads/
+
+# =========================
+# Cache files
+# =========================
+.cache/
+.parcel-cache/
+
+# =========================
+# TypeScript (if used)
+# =========================
+*.tsbuildinfo
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# =========================
+# Misc
+# =========================
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
