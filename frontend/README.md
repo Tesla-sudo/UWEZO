@@ -77,16 +77,18 @@ Open http://localhost:5173 to view the app.
 📋 Available Routes
 
 
-Route,Description
-/,Login Page
-/dashboard,Main User Dashboard
-/invest,Investment Opportunities Page
-/learn,Learning Module
-/ussd,USSD Simulator (*789#)
-/simulator,Risk-Free Trading Simulator
-/broker-check,Broker Verification Tool
 
 
+
+Route	Description
+/	Login Page
+/dashboard	Main User Dashboard
+/invest	Investment Opportunities Page
+/learn	Learning Module
+/ussd	USSD Simulator (*789#)
+/simulator	Risk-Free Trading Simulator
+/broker-check	Broker Verification Tool
+<img width="129" height="161" alt="image" src="https://github.com/user-attachments/assets/112e6722-b132-49e5-95b7-eb53c284be8a" />
 
 
 
@@ -123,53 +125,53 @@ RouteDescription/Login Page/dashboardMain User Dashboard/investInvestment Opport
 
 🎨 Design Highlights
 
-Primary Colors: Emerald Green (#10b981), Energy Orange (#f59e0b), Trust Blue (#1e40af)
-Typography: Space Grotesk for headings, Inter for body
-Components: Glassmorphism effects, smooth hover animations, mobile-first responsive design
-Figma-style Polish: Subtle shadows, rounded corners (3xl), generous whitespace
+- Primary Colors: Emerald Green (#10b981), Energy Orange (#f59e0b), Trust Blue (#1e40af)
+- Typography: Space Grotesk for headings, Inter for body
+- Components: Glassmorphism effects, smooth hover animations, mobile-first responsive design
+- Figma-style Polish: Subtle shadows, rounded corners (3xl), generous whitespace
 
 
 🔧 Key Components
 
-Login.jsx — Beautiful hero login with phone + USSD option
-Dashboard.jsx — Reputation score, learning streak, total invested, quick actions
-InvestmentPage.jsx — Micro-investment cards with payment integration
-PaymentButton.jsx — M-PESA STK Push simulation
-USSDSimulator.jsx — Realistic black/green USSD interface
-LanguageSelector.jsx — Supports English, Kiswahili & Sheng
-ChatbotWidget.jsx — Floating WhatsApp-style support chat
+- Login.jsx — Beautiful hero login with phone + USSD option
+- Dashboard.jsx — Reputation score, learning streak, total invested, quick actions
+- InvestmentPage.jsx — Micro-investment cards with payment integration
+- PaymentButton.jsx — M-PESA STK Push simulation
+- USSDSimulator.jsx — Realistic black/green USSD interface
+- LanguageSelector.jsx — Supports English, Kiswahili & Sheng
+- ChatbotWidget.jsx — Floating WhatsApp-style support chat
 
 
 🌍 Multilingual Support
 
-English
-Kiswahili (Default for Kenya)
-Sheng (Kenyan street slang)
+- English
+- Kiswahili (Default for Kenya)
+- Sheng (Kenyan street slang)
 
-Language selector is located in the top navigation.
+- Language selector is located in the top navigation.
 
 ♿ Accessibility
 
-WCAG 2.1 AA compliant
-High contrast ratios
-Proper ARIA labels
-Keyboard navigable
-Screen reader friendly
+- WCAG 2.1 AA compliant
+- High contrast ratios
+- Proper ARIA labels
+- Keyboard navigable
+- Screen reader friendly
 
 
 🔮 Future Enhancements
 
-Full i18n implementation (react-i18next)
-Real backend API integration
-PWA support for offline use
-Voice input for learning modules
-Biometric login (fingerprint simulation)
-Dark/Light mode toggle in UI
+- Full i18n implementation (react-i18next)
+- Real backend API integration
+- PWA support for offline use
+- Voice input for learning modules
+- Biometric login (fingerprint simulation)
+- Dark/Light mode toggle in UI
 
 
 📄 License
-This project is part of the UWEZO financial inclusion platform. All rights reserved.
+- This project is part of the UWEZO financial inclusion platform. All rights reserved.
 
-Built with ❤️ for Kenya's unbanked and underbanked communities.
+- Built with ❤️ for Kenya's unbanked and underbanked communities.
 
 Made for UWEZO – Empowering Kenyans to invest smarter.
