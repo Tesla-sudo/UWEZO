@@ -60,7 +60,7 @@ UWEZO/
 │   ├── package.json
 │   └── README.md
 
-
+```
 🚀 Quick Start
 1. Clone the repository
 Bashgit clone <your-repo-url>
@@ -77,7 +77,14 @@ Open http://localhost:5173 to view the app.
 📋 Available Routes
 
 
-
+Route,Description
+/,Login Page
+/dashboard,Main User Dashboard
+/invest,Investment Opportunities Page
+/learn,Learning Module
+/ussd,USSD Simulator (*789#)
+/simulator,Risk-Free Trading Simulator
+/broker-check,Broker Verification Tool
 
 
 
