@@ -74,54 +74,6 @@ npx tailwindcss init -p
 Bashnpm run dev
 Open http://localhost:5173 to view the app.
 
-📋 Available Routes
-
-
-
-
-
-Route	Description
-/	Login Page
-/dashboard	Main User Dashboard
-/invest	Investment Opportunities Page
-/learn	Learning Module
-/ussd	USSD Simulator (*789#)
-/simulator	Risk-Free Trading Simulator
-/broker-check	Broker Verification Tool
-<img width="129" height="161" alt="image" src="https://github.com/user-attachments/assets/112e6722-b132-49e5-95b7-eb53c284be8a" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-RouteDescription/Login Page/dashboardMain User Dashboard/investInvestment Opportunities Page/learnLearning Module/ussdUSSD Simulator (*789#)/simulatorRisk-Free Trading Simulator/broker-checkBroker Verification Tool
 
 🎨 Design Highlights
 
