@@ -1,10 +1,4 @@
-/**
- * =============================================
- * FILE: backend/models/Transaction.js
- * OWNER: Backend & Payments Engineer
- * PURPOSE: MongoDB schema for all transactions
- * =============================================
- */
+
 
 const mongoose = require('mongoose');
 
