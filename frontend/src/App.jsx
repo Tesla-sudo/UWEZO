@@ -2,20 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import InvestmentPage from './components/InvestmentPage';
 import LearningModule from './components/LearningModule';
-import USSDSimulator from './components/USSDSimulator';
 import Simulator from './components/Simulator';
+import USSDSimulator from './components/USSDSimulator';
 import BrokerCheck from './components/BrokerCheck';
 import ChatbotWidget from './components/ChatbotWidget';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) return savedTheme;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return localStorage.getItem('theme') || 
+           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   });
 
   useEffect(() => {
@@ -27,21 +28,72 @@ function App() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+  // eslint-disable-next-line no-unused-vars
+  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   return (
     <Router>
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard toggleTheme={toggleTheme} currentTheme={theme} />} />
-          <Route path="/invest" element={<InvestmentPage toggleTheme={toggleTheme} currentTheme={theme} />} />
-          <Route path="/learn" element={<LearningModule toggleTheme={toggleTheme} currentTheme={theme} />} />
-          <Route path="/ussd" element={<USSDSimulator toggleTheme={toggleTheme} currentTheme={theme} />} />
-          <Route path="/simulator" element={<Simulator toggleTheme={toggleTheme} currentTheme={theme} />} />
-          <Route path="/broker-check" element={<BrokerCheck toggleTheme={toggleTheme} currentTheme={theme} />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/invest"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <InvestmentPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/learn"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <LearningModule />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/simulator"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <Simulator />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ussd"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <USSDSimulator />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/broker-check"
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <BrokerCheck />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 

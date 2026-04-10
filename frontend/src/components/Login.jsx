@@ -1,78 +1,101 @@
 // src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Smartphone } from 'lucide-react';
+import { userApi } from '../api';
 import LanguageSelector from './LanguageSelector';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [phone, setPhone] = useState('712345678');
+  const [phone, setPhone] = useState('');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError('');
+
+    try {
+      const res = await userApi.register({
+        phoneNumber: `254${phone}`,
+        name: name || 'Investor',
+        language: 'swahili'
+      });
+
+      if (res.data.token) {
+        localStorage.setItem('uwezo_token', res.data.token);
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to register. Please try again.');
+    } finally {
       setLoading(false);
-      navigate('/dashboard');
-    }, 1100);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-600 via-green-600 to-amber-500 flex items-center justify-center p-6">
-      <div className="max-w-4xl w-full grid md:grid-cols-2 gap-12 items-center">
-        {/* Hero Section */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 flex items-center justify-center p-6">
+      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
+        {/* Left Side - Brand */}
         <div className="text-white space-y-8">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-3xl flex items-center justify-center text-4xl">🌱</div>
-            <h1 className="text-5xl font-bold tracking-tighter heading-font">UWEZO</h1>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-4xl font-bold text-emerald-600">U</div>
+            <h1 className="text-6xl font-semibold tracking-tighter">UWEZO</h1>
           </div>
-          <h2 className="text-6xl leading-none tracking-tighter font-semibold">
-            Your ability<br />to invest starts<br />here.
+          <h2 className="text-6xl leading-tight font-semibold tracking-tighter">
+            Invest with confidence.<br />Grow with knowledge.
           </h2>
-          <p className="text-xl text-white/90 max-w-md">
-            Learn investing. Build reputation. Access micro-investments safely.
+          <p className="text-xl text-slate-300 max-w-md">
+            The safest way for Kenyans to learn, verify, and start investing — even on feature phones.
           </p>
         </div>
 
-        {/* Login Card */}
+        {/* Login Form */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-10 shadow-2xl">
           <LanguageSelector />
 
-          <h3 className="text-3xl font-semibold mt-10 mb-2 text-slate-900 dark:text-white">Karibu UWEZO 👋</h3>
-          <p className="text-slate-500 dark:text-slate-400 mb-8">Enter your phone number to begin</p>
+          <h3 className="text-3xl font-semibold mt-10 mb-2">Welcome to UWEZO</h3>
+          <p className="text-slate-500 mb-8">Enter your details to get started</p>
 
-          <div className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">PHONE NUMBER</label>
-              <div className="flex border-2 border-emerald-200 dark:border-emerald-800 rounded-3xl overflow-hidden focus-within:border-emerald-500">
-                <div className="bg-emerald-50 dark:bg-slate-800 px-6 flex items-center text-emerald-600 font-medium">+254</div>
+              <label className="block text-xs font-medium text-slate-500 mb-2">FULL NAME</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-6 py-4 border border-slate-200 dark:border-slate-700 rounded-3xl outline-none focus:border-emerald-600"
+                placeholder="Amina Chebet"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-2">PHONE NUMBER</label>
+              <div className="flex border border-slate-200 dark:border-slate-700 rounded-3xl overflow-hidden focus-within:border-emerald-600">
+                <div className="bg-slate-100 dark:bg-slate-800 px-6 flex items-center text-slate-600 font-medium">+254</div>
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="flex-1 px-6 py-5 bg-transparent outline-none text-lg text-slate-900 dark:text-white"
+                  className="flex-1 px-6 py-4 bg-transparent outline-none text-lg"
                   placeholder="712 345 678"
+                  required
                 />
               </div>
             </div>
 
-            <button
-              onClick={handleLogin}
-              disabled={loading}
-              className="w-full h-14 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-3xl font-semibold text-lg flex items-center justify-center gap-3 disabled:opacity-70 active:scale-[0.98] transition-all"
-            >
-              {loading ? 'Connecting...' : 'Continue with SMS'}
-              {!loading && <ArrowRight className="w-5 h-5" />}
-            </button>
+            {error && <p className="text-red-600 text-sm">{error}</p>}
 
             <button
-              onClick={() => navigate('/ussd')}
-              className="w-full h-14 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-3xl flex items-center justify-center gap-3 hover:border-emerald-400 transition-colors text-slate-700 dark:text-slate-300"
+              type="submit"
+              disabled={loading || !phone}
+              className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white rounded-3xl font-semibold text-lg transition-all"
             >
-              <Smartphone className="w-5 h-5" />
-              Or use USSD *789# (no internet)
+              {loading ? 'Connecting...' : 'Continue to Dashboard'}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
