@@ -13,6 +13,7 @@ import USSDSimulator from './components/USSDSimulator';
 import BrokerCheck from './components/BrokerCheck';
 import ChatbotWidget from './components/ChatbotWidget';
 import ProtectedRoute from './components/ProtectedRoute';
+import MyInvestments from './components/MyInvestments';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -39,7 +40,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Protected Routes */}
+          {/* Protected Routes with Navbar */}
           <Route
             path="/dashboard"
             element={
@@ -58,6 +59,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route 
+          path="/investments"
+          element={
+            <ProtectedRoute>
+              <Navbar toggleTheme={toggleTheme} />
+              <MyInvestments />
+            </ProtectedRoute>
+          }/>
           <Route
             path="/learn"
             element={
@@ -98,6 +107,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
+        {/* Global Floating Chatbot Widget - Always available but easy to close */}
         <ChatbotWidget />
       </div>
     </Router>

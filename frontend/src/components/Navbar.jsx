@@ -49,6 +49,12 @@ export default function Navbar({ toggleTheme }) {
           >
             Simulator
           </button>
+          <button 
+            onClick={() => navigate('/investments')}
+            className={`hover:text-emerald-600 transition-colors ${location.pathname === '/investments' ? 'text-emerald-600 font-semibold' : ''}`}
+          >
+            Investments
+          </button>
         </div>
 
         {/* Theme Toggle */}

@@ -1,25 +1,31 @@
-// src/components/PaymentButton.js
+// src/components/PaymentButton.jsx
 import React, { useState } from 'react';
 import { Loader } from 'lucide-react';
 import { paymentApi } from '../api';
 
-export default function PaymentButton({ amount = 500, userId, phoneNumber, customerName }) {
+export default function PaymentButton({ amount, userId, phoneNumber, customerName, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const handlePayment = async () => {
     setLoading(true);
     try {
-      await paymentApi.initiateSTKPush({
+      const res = await paymentApi.initiateSTKPush({
         phoneNumber,
         amount,
         userId,
         customerName,
       });
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 4000);
+
+      if (res.data.success) {
+        setSuccess(true);
+        // Simulate successful callback after 4 seconds (in real app this comes from PayHero webhook)
+        setTimeout(() => {
+          if (onSuccess) onSuccess(res.data.data);
+        }, 4000);
+      }
     } catch (err) {
-      alert(err.message || 'Payment failed. Please try again.');
+      alert(err.message || 'Payment failed');
     } finally {
       setLoading(false);
     }
@@ -29,17 +35,17 @@ export default function PaymentButton({ amount = 500, userId, phoneNumber, custo
     <button
       onClick={handlePayment}
       disabled={loading}
-      className="w-full h-14 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-3xl font-semibold text-lg flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all disabled:opacity-70"
+      className="w-full h-14 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-3xl font-semibold flex items-center justify-center gap-3 transition-all"
     >
       {loading ? (
         <>
           <Loader className="animate-spin w-5 h-5" />
-          Sending STK Push...
+          Processing STK Push...
         </>
       ) : success ? (
-        '✅ STK Push Sent – Check your phone'
+        '✅ Investment Confirmed'
       ) : (
-        `Pay with M-PESA • KES ${amount}`
+        `Pay KES ${amount} with M-PESA`
       )}
     </button>
   );

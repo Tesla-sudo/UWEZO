@@ -16,29 +16,29 @@ export default function Login() {
     setLoading(true);
     setError('');
 
-    try {
-      console.log('🔍 Trying login with:', { phoneNumber: `254${phone}`, pin });
+    const fullPhone = `254${phone}`;
 
+    console.log('🔍 Attempting login with:', { phoneNumber: fullPhone, pin });
+
+    try {
       const res = await userApi.login({
-        phoneNumber: `254${phone}`,
+        phoneNumber: fullPhone,
         pin: pin
       });
 
-      console.log('✅ Login successful:', res.data);
+      console.log('✅ Login response:', res.data);
 
       if (res.data.token) {
         localStorage.setItem('uwezo_token', res.data.token);
         navigate('/dashboard');
       } else {
-        setError('Login failed. No token received.');
+        setError('Login failed. Please try again.');
       }
     } catch (err) {
-      console.error('❌ Login error details:', err.response?.data || err.message);
+      console.error('❌ Login error:', err.response?.data || err);
       
-      const errorMsg = err.response?.data?.message 
-                     || err.response?.data?.error 
-                     || 'Invalid phone number or PIN. Please try again.';
-      
+      const errorMsg = err.response?.data?.message || 
+                      'Invalid phone number or PIN. Please check your credentials.';
       setError(errorMsg);
     } finally {
       setLoading(false);
@@ -67,7 +67,7 @@ export default function Login() {
           <LanguageSelector />
 
           <h3 className="text-3xl font-semibold mt-10 mb-2">Welcome back</h3>
-          <p className="text-slate-500 mb-8">Sign in with your phone and PIN</p>
+          <p className="text-slate-500 mb-8">Sign in with your phone number and PIN</p>
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
@@ -77,7 +77,7 @@ export default function Login() {
                 <input
                   type="tel"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 9))}
                   className="flex-1 px-6 py-4 bg-transparent outline-none text-lg"
                   placeholder="712 345 678"
                   maxLength={9}
@@ -91,7 +91,7 @@ export default function Login() {
               <input
                 type="password"
                 value={pin}
-                onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
+                onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
                 maxLength={4}
                 className="w-full px-6 py-4 border border-slate-200 dark:border-slate-700 rounded-3xl outline-none focus:border-emerald-600"
                 placeholder="••••"
@@ -103,19 +103,19 @@ export default function Login() {
 
             <button
               type="submit"
-              disabled={loading || !phone || pin.length !== 4}
+              disabled={loading || phone.length < 9 || pin.length !== 4}
               className="w-full h-14 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 text-white rounded-3xl font-semibold text-lg transition-all"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
 
-            <div className="text-center text-sm">
+            <div className="text-center text-sm text-slate-500">
               Don't have an account?{' '}
               <span 
                 onClick={() => navigate('/register')} 
-                className="text-emerald-600 cursor-pointer hover:underline"
+                className="text-emerald-600 cursor-pointer hover:underline font-medium"
               >
-                Register here
+                Create one here
               </span>
             </div>
           </form>
