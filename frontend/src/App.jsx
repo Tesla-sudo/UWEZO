@@ -14,6 +14,7 @@ import BrokerCheck from './components/BrokerCheck';
 import ChatbotWidget from './components/ChatbotWidget';
 import ProtectedRoute from './components/ProtectedRoute';
 import MyInvestments from './components/MyInvestments';
+import Portfolio from './components/Portfolio';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -67,6 +68,15 @@ function App() {
               <MyInvestments />
             </ProtectedRoute>
           }/>
+          <Route
+  path="/portfolio"
+  element={
+    <ProtectedRoute>
+      <Navbar toggleTheme={toggleTheme} />
+      <Portfolio />
+    </ProtectedRoute>
+  }
+/>
           <Route
             path="/learn"
             element={
