@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import Navbar from './components/Navbar';
 import Login from './components/Login';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import InvestmentPage from './components/InvestmentPage';
 import LearningModule from './components/LearningModule';
@@ -28,7 +29,6 @@ function App() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // eslint-disable-next-line no-unused-vars
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   return (
@@ -37,13 +37,14 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Protected Routes */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Navbar />
+                <Navbar toggleTheme={toggleTheme} />
                 <Dashboard />
               </ProtectedRoute>
             }
@@ -52,7 +53,7 @@ function App() {
             path="/invest"
             element={
               <ProtectedRoute>
-                <Navbar />
+                <Navbar toggleTheme={toggleTheme} />
                 <InvestmentPage />
               </ProtectedRoute>
             }
@@ -61,7 +62,7 @@ function App() {
             path="/learn"
             element={
               <ProtectedRoute>
-                <Navbar />
+                <Navbar toggleTheme={toggleTheme} />
                 <LearningModule />
               </ProtectedRoute>
             }
@@ -70,7 +71,7 @@ function App() {
             path="/simulator"
             element={
               <ProtectedRoute>
-                <Navbar />
+                <Navbar toggleTheme={toggleTheme} />
                 <Simulator />
               </ProtectedRoute>
             }
@@ -79,7 +80,7 @@ function App() {
             path="/ussd"
             element={
               <ProtectedRoute>
-                <Navbar />
+                <Navbar toggleTheme={toggleTheme} />
                 <USSDSimulator />
               </ProtectedRoute>
             }
@@ -88,7 +89,7 @@ function App() {
             path="/broker-check"
             element={
               <ProtectedRoute>
-                <Navbar />
+                <Navbar toggleTheme={toggleTheme} />
                 <BrokerCheck />
               </ProtectedRoute>
             }

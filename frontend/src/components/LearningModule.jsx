@@ -1,45 +1,49 @@
-// src/components/LearningModule.js
+// src/components/LearningModule.jsx
 import React, { useState } from 'react';
-import { Play, Award } from 'lucide-react';
+import { Play, Award, BookOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LearningModule() {
-  const [progress, setProgress] = useState(65);
+  const navigate = useNavigate();
+  const [progress] = useState(65);
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <div className="text-emerald-500 text-sm font-medium">LESSON 1 • Investing Basics</div>
-          <h2 className="text-3xl font-semibold">What is a Sacco and why it matters</h2>
+    <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-4 py-1.5 rounded-full text-sm font-medium">
+          <BookOpen className="w-4 h-4" /> Learning Hub
         </div>
-        <div className="text-right">
-          <div className="text-5xl font-bold text-emerald-600">{progress}%</div>
-          <div className="text-xs text-slate-400">COMPLETE</div>
+        <h1 className="text-5xl font-semibold tracking-tighter mt-6">Grow your knowledge, grow your wealth</h1>
+      </div>
+
+      {/* Beautiful Learning Card */}
+      <div className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-100 dark:border-slate-700">
+        <div className="h-64 bg-gradient-to-br from-emerald-600 to-green-700 flex items-center justify-center relative">
+          <div className="text-8xl">📚</div>
+          <div className="absolute bottom-6 left-8 text-white">
+            <div className="text-sm opacity-75">LESSON 1 • BASICS</div>
+            <div className="text-3xl font-semibold">What is a Sacco?</div>
+          </div>
         </div>
-      </div>
 
-      <div className="bg-slate-100 dark:bg-slate-900 rounded-2xl p-8 mb-8 h-64 flex items-center justify-center text-6xl">
-        🎤 Voice lesson playing...
-      </div>
+        <div className="p-10">
+          <div className="flex justify-between items-center mb-8">
+            <div className="text-6xl font-bold text-emerald-600">{progress}%</div>
+            <div className="text-right">
+              <div className="text-sm text-slate-500">Progress</div>
+              <div className="flex items-center gap-1 text-emerald-600">
+                <Award className="w-5 h-5" /> 21 day streak
+              </div>
+            </div>
+          </div>
 
-      <div className="prose dark:prose-invert">
-        <p>Cooperatives (Saccos) let Kenyans pool money safely for better returns than traditional savings.</p>
-      </div>
-
-      <div className="mt-12 flex gap-4">
-        <button 
-          onClick={() => setProgress(Math.min(100, progress + 20))} 
-          className="flex-1 h-14 bg-emerald-600 text-white rounded-3xl font-medium flex items-center justify-center gap-2"
-        >
-          <Play className="w-5 h-5" /> Next Section
-        </button>
-        <button className="flex-1 h-14 border border-slate-300 dark:border-slate-600 rounded-3xl font-medium">
-          Take Quick Quiz
-        </button>
-      </div>
-
-      <div className="mt-8 flex items-center gap-2 text-emerald-600 text-sm">
-        <Award className="w-5 h-5" /> Streak: 21 days • Keep going!
+          <button
+            onClick={() => navigate('/')} // Opens chatbot via floating widget or you can trigger it directly
+            className="w-full h-14 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-3xl font-semibold flex items-center justify-center gap-3 hover:brightness-110 transition-all"
+          >
+            <Play className="w-5 h-5" /> Start Interactive Lesson with AI Assistant
+          </button>
+        </div>
       </div>
     </div>
   );
