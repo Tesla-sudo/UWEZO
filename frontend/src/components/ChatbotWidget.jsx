@@ -144,10 +144,15 @@ export default function ChatbotWidget() {
                   ) : (
                     <ReactMarkdown 
                       components={{
+                        // eslint-disable-next-line no-unused-vars
                         p: ({node, ...props}) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
+                        // eslint-disable-next-line no-unused-vars
                         strong: ({node, ...props}) => <strong className="font-semibold text-emerald-800 dark:text-emerald-400" {...props} />,
+                        // eslint-disable-next-line no-unused-vars
                         ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props} />,
+                        // eslint-disable-next-line no-unused-vars
                         ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props} />,
+                        // eslint-disable-next-line no-unused-vars
                         li: ({node, ...props}) => <li className="leading-relaxed" {...props} />
                       }}
                     >

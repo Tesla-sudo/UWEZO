@@ -5,7 +5,7 @@ const connectDB = require('./config/db');
 
 dotenv.config();
 
-// 🛠️ ADD THIS LINE RIGHT HERE TO FIX THE FETCH ERROR:
+
 require('node:dns').setDefaultResultOrder('ipv4first'); 
 
 const app = express();
