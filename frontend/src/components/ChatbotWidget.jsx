@@ -107,11 +107,17 @@ export default function ChatbotWidget() {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-28 right-8 w-[400px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 z-50 flex flex-col h-[600px]">
+        <div className="fixed bottom-24 right-6 max-w-[380px] w-full bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 z-50 flex flex-col h-[560px]">
           {/* Header */}
           <div className="bg-emerald-600 text-white p-4 flex items-center justify-between">
             <div className="font-medium">UWEZO Assistant</div>
-            <button onClick={() => setIsOpen(false)}><X className="w-5 h-5"/></button>
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="w-8 h-8 flex items-center justify-center hover:bg-emerald-700 rounded-full transition-colors"
+              aria-label="Close chat"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           {/* Language Selector */}
